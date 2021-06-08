@@ -1,8 +1,10 @@
-
-
 # Axios
 
-Axios는 Promise API를 활용하는 HTTP 비동기 통신 라이브러리입니다. 
+Axios는 HTTP 클라이언트 라이브러리 중 하나입니다.
+
+비동기 방식으로 HTTP 데이터 요청을 실행하고 IE8 이상을 포함한 모든 최신 브라우저를 지원합니다.
+
+Axios는 Promise 기반의 자바스크립트 비동기 처리 방식을 사용합니다.
 
 > Promise란?
 >
@@ -10,17 +12,13 @@ Axios는 Promise API를 활용하는 HTTP 비동기 통신 라이브러리입니
 >
 > 참고 : [Promise](https://github.com/jewdri-kim/javascriptStudy/tree/master/async/promise)
 
-### Axios 특징
+### Axios 장점
 
-- 운영 환경에 따라 브라우저의 [XMLHttpRequest](https://developer.mozilla.org/ko/docs/Web/API/XMLHttpRequest) 객체 또는 Node.js의 [http](https://nodejs.org/api/http.html) api 사용
-- [Promise](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise)(ES6) API 사용
-- 요청과 응답 데이터의 변형
-- HTTP 요청 취소
-- HTTP 요청과 응답을 JSON 형태로 자동 변경
-
-### 브라우저 호환성
-
-![img](src/assets/sample.png)
+- 구형브라우저를 지원
+- 요청 중단 가능
+- 응답 시간 초과를 설정 가능
+- CSFR 보호 가능(보안 관련인듯)
+- JSON 데이터 자동 변환이 가능
 
 ### Vue 프로젝트에 axios 설치하기
 
@@ -37,6 +35,18 @@ Axios는 Promise API를 활용하는 HTTP 비동기 통신 라이브러리입니
    `<script src="https://unpkg.com/axios/dist/axios.min.js"></script>`
 
 ### Axios 사용하기
+
+axios는 여러가지 별칭 method를 제공하고 있습니다.
+
+> axios.get(url[, config])
+> axios.post(url[, data[, config]])
+> axios.patch(url[, data[, config]])
+> axios.delete(url[, config])
+> 위에 자주 쓰이는 4가지 이외에도 여러가지 를 지원 하고 있다.
+> axios.request(config)
+> axios.head(url[, config])
+> axios.options(url[, config])
+> axios.put(url[, data[, config]])
 
 axios는 Promise 기반의 자바스크립트 비동기 처리방식을 사용합니다. 그래서 요청후 .then()으로 결과값을 받아서 처리하는 형식으로 구성되어 있습니다.
 
@@ -63,7 +73,11 @@ axios.get('/api/data/1')
   console.log(`status code: ${res.status}`)
   console.log(`headers: ${res.headers}`) 
   console.log(`data: ${res.data}`) 
-})
+  console.log(res);  //값을 불러왔을때
+	})
+	.catch(err) => {
+    console.log(err); //통신에러가 떴을때
+  });
 ```
 
 > 템플릿 리터럴의 ${} 문법을 활용하여 문자열을 쪼개지 않고 동적으로 표현
@@ -91,8 +105,8 @@ axios.get('/api/data', {
 ```javascript
 axios.post('/api/data', {title: "vue.js는 조으다."}) 
   .then(res => { 
-  console.log(res.data) 
-})
+  	console.log(res.data) 
+	})
 ```
 
 #### PATCH
@@ -106,8 +120,8 @@ axios.post('/api/data', {title: "vue.js는 조으다."})
 ```javascript
 axios.patch('/api/data/3', {title: "vue.js는 조으다."}) 
   .then(res => { 
-  console.log(res.data) 
-})
+     console.log(res.data) 
+   })
 ```
 
 #### DELETE
